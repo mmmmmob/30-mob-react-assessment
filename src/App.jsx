@@ -19,7 +19,7 @@ function App() {
       setEmployee([...employeeData.data]);
     };
     getEmployeeData();
-  }, [Admin]);
+  }, []);
 
   return (
     <>
@@ -103,9 +103,22 @@ function Admin({ employee }) {
     );
   };
 
+  const deleteEmployee = async (id) => {
+    const deleteEmployee = await Axios.delete(
+      `https://jsd5-mock-backend.onrender.com/member/${id}`,
+      {
+        member_id: id,
+      }
+    );
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     createNewEmployee(name, lastname, position);
+  };
+
+  const handleDelete = (id) => {
+    deleteEmployee(id);
   };
 
   return (
@@ -158,7 +171,12 @@ function Admin({ employee }) {
                   <td>{member.lastname}</td>
                   <td>{member.position}</td>
                   <td>
-                    <button className="btn btn-error btn-xs">DELETE</button>
+                    <button
+                      onClick={() => handleDelete(member.id)}
+                      className="btn btn-error btn-xs"
+                    >
+                      DELETE
+                    </button>
                   </td>
                 </tr>
               ))}
