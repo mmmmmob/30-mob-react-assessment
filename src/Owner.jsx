@@ -11,7 +11,7 @@ const Owner = () => {
             <img
               src="./avatar.jpg"
               alt="profile-picture"
-              className="inline-block"
+              className="inline-block mask mask-squircle"
             />
             <p className="py-6 font-semibold">Short Biography:</p>
             <p className="text-justify">
