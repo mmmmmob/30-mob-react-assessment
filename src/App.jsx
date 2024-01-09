@@ -99,10 +99,6 @@ function Admin({ employee, setReload, reload }) {
   const [lastname, setLastname] = useState();
   const [position, setPosition] = useState();
 
-  useEffect(() => {
-    setReload(false);
-  }, []);
-
   const createNewEmployee = async (name, lastname, position) => {
     const newEmployee = await Axios.post(
       "https://jsd5-mock-backend.onrender.com/members",
