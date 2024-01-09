@@ -49,7 +49,7 @@ function App() {
           </div>
           <div>
             {sector === "admin" ? (
-              <Admin employee={employee} />
+              <Admin employee={employee} setEmployee={setEmployee} />
             ) : sector === "user" ? (
               <Users employee={employee} />
             ) : (
@@ -87,7 +87,7 @@ function Users({ employee }) {
   );
 }
 
-function Admin({ employee }) {
+function Admin({ employee, setEmployee }) {
   const [name, setName] = useState();
   const [lastname, setLastname] = useState();
   const [position, setPosition] = useState();
@@ -120,6 +120,16 @@ function Admin({ employee }) {
   const handleDelete = (id) => {
     deleteEmployee(id);
   };
+
+  useEffect(() => {
+    const fetchEmployeeData = async () => {
+      const updatedEmployeeData = await Axios.get(
+        "https://jsd5-mock-backend.onrender.com/members"
+      );
+      setEmployee(updatedEmployeeData.data);
+    };
+    fetchEmployeeData();
+  }, [employee]);
 
   return (
     <div>
