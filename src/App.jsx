@@ -5,7 +5,11 @@ import Layout from "./Layout";
 
 function App() {
   const [employee, setEmployee] = useState([]);
-  const [sector, setSector] = useState("admin");
+  const [sector, setSector] = useState("");
+
+  const handleSector = (state) => {
+    setSector(state);
+  };
 
   useEffect(() => {
     const getEmployeeData = async () => {
@@ -25,12 +29,35 @@ function App() {
             <h1 className="text-5xl font-bold">Generation Thailand</h1>
             <h1 className="text-5xl my-3">React Assessment</h1>
           </div>
-          <div className="my-6 flex w-full justify-evenly">
-            <button className="btn btn-primary">Use Home Sector</button>
-            <button className="btn btn-warning">Admin Home Sector</button>
+          <div className="my-8 flex w-full justify-evenly">
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                handleSector("user");
+              }}
+            >
+              Use Home Sector
+            </button>
+            <button
+              className="btn btn-warning"
+              onClick={() => {
+                handleSector("admin");
+              }}
+            >
+              Admin Home Sector
+            </button>
           </div>
-          <Users employee={employee} />
-          {/* <Admin /> */}
+          <div>
+            {sector === "admin" ? (
+              <Admin employee={employee} />
+            ) : sector === "user" ? (
+              <Users employee={employee} />
+            ) : (
+              <h3 className="font-semibold mt-4">
+                Please select the option above
+              </h3>
+            )}
+          </div>
         </div>
       </Layout>
     </>
@@ -60,7 +87,7 @@ function Users({ employee }) {
   );
 }
 
-function Admin() {
+function Admin({ employee }) {
   return (
     <div>
       <h1 className="text-xl font-semibold my-4">Create user here</h1>
@@ -93,14 +120,17 @@ function Admin() {
               <td>Position</td>
               <td>Action</td>
             </thead>
-            <tbody className="text-lg">
-              {/* td with .map here */}
-              <td>1</td>
-              <td>2</td>
-              <td>3</td>
-              <td>
-                <button>DELETE</button>
-              </td>
+            <tbody>
+              {employee.map((member) => (
+                <tr key={member.id}>
+                  <td>{member.name}</td>
+                  <td>{member.lastname}</td>
+                  <td>{member.position}</td>
+                  <td>
+                    <button className="btn btn-error btn-xs">DELETE</button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
