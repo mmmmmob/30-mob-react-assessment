@@ -66,23 +66,25 @@ function App() {
 
 function Users({ employee }) {
   return (
-    <div className="overflow-x-auto my-4">
-      <table className="table table-zebra table-auto">
-        <thead className="text-lg">
-          <td>Name</td>
-          <td>Lastname</td>
-          <td>Position</td>
-        </thead>
-        <tbody>
-          {employee.map((member) => (
-            <tr key={member.id}>
-              <td>{member.name}</td>
-              <td>{member.lastname}</td>
-              <td>{member.position}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className=" overflow-x-scroll">
+      <div className="w-full h-[400px] ">
+        <table className="text-center table  table-lg table-auto  w-full">
+          <thead className="text-lg sticky top-0 z-10 bg-slate-300 dark:bg-slate-900">
+            <td>Name</td>
+            <td>Lastname</td>
+            <td>Position</td>
+          </thead>
+          <tbody>
+            {employee.map((member) => (
+              <tr key={member.id}>
+                <td>{member.name}</td>
+                <td>{member.lastname}</td>
+                <td>{member.position}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
@@ -133,48 +135,51 @@ function Admin({ employee, setEmployee }) {
 
   return (
     <div>
-      <h1 className="text-xl font-semibold my-4">Create user here</h1>
-      <div className="flex flex-col justify-center items-center">
-        <div className="mb-4 bt-2 flex justify-center items-center ">
-          <form onSubmit={handleSubmit}>
-            <input
-              className=" mr-4 input input-bordered input-primary "
-              type="text"
-              placeholder="Name"
-              onChange={(e) => {
-                setName(e.target.value);
-              }}
-            />
-            <input
-              className="mx-3 input input-bordered input-primary "
-              type="text"
-              placeholder="Lastname"
-              onChange={(e) => {
-                setLastname(e.target.value);
-              }}
-            />
-            <input
-              className="mx-3 input input-bordered input-primary "
-              type="text"
-              placeholder="Position"
-              onChange={(e) => {
-                setPosition(e.target.value);
-              }}
-            />
-            <button type="submit" className="mx-3 btn btn-success">
-              Submit
-            </button>
-          </form>
+      <div>
+        <h1 className="text-xl font-semibold my-4">Create user here</h1>
+        <div className="flex flex-col justify-center items-center">
+          <div className="mb-4 bt-2 flex justify-center items-center ">
+            <form onSubmit={handleSubmit}>
+              <input
+                className=" mr-4 input input-bordered input-primary "
+                type="text"
+                placeholder="Name"
+                onChange={(e) => {
+                  setName(e.target.value);
+                }}
+              />
+              <input
+                className="mx-3 input input-bordered input-primary "
+                type="text"
+                placeholder="Lastname"
+                onChange={(e) => {
+                  setLastname(e.target.value);
+                }}
+              />
+              <input
+                className="mx-3 input input-bordered input-primary "
+                type="text"
+                placeholder="Position"
+                onChange={(e) => {
+                  setPosition(e.target.value);
+                }}
+              />
+              <button type="submit" className="mx-3 btn btn-success">
+                Submit
+              </button>
+            </form>
+          </div>
         </div>
-        <div className="overflow-x-auto my-4">
-          <table className="table table-zebra table-auto">
-            <thead className="text-lg">
+
+        <div className="overflow-x-scroll my-4 h-[300px]">
+          <table className="text-center table table-lg table-auto overflow-scroll w-full">
+            <thead className="text-lg sticky top-0 z-10 bg-slate-300 dark:bg-slate-900">
               <td>Name</td>
               <td>Lastname</td>
               <td>Position</td>
               <td>Action</td>
             </thead>
-            <tbody>
+            <tbody className="">
               {employee.map((member) => (
                 <tr key={member.id}>
                   <td>{member.name}</td>
