@@ -4,11 +4,15 @@ import Layout from "./Layout";
 const Owner = () => {
   return (
     <Layout>
-      <div className="hero min-h-screen bg-base-200 dark:bg-slate-700">
-        <div className="hero-content text-center">
+      <div className="hero max-h-screen">
+        <div className="flex hero-content text-center">
           <div className="max-w-md">
             <h1 className="text-5xl py-6 font-bold">Mob - Group 8 - 30</h1>
-            <img src="./asset/avatar.jpg" alt="profile-picture" />
+            <img
+              src="./avatar.jpg"
+              alt="profile-picture"
+              className="inline-block"
+            />
             <p className="py-6 font-semibold">Short Biography:</p>
             <p className="text-justify">
               As a former project manager — now on my way to becoming a web and
