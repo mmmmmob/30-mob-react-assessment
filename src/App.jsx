@@ -6,6 +6,7 @@ import Layout from "./Layout";
 function App() {
   const [employee, setEmployee] = useState([]);
   const [sector, setSector] = useState("");
+  const [reload, setReload] = useState(false);
 
   const handleSector = (state) => {
     setSector(state);
@@ -19,7 +20,7 @@ function App() {
       setEmployee([...employeeData.data]);
     };
     getEmployeeData();
-  }, []);
+  }, [reload]);
 
   return (
     <>
@@ -34,6 +35,7 @@ function App() {
               className="btn btn-primary"
               onClick={() => {
                 handleSector("user");
+                console.log("i'm presed!", sector);
               }}
             >
               Use Home Sector
@@ -42,6 +44,7 @@ function App() {
               className="btn btn-warning"
               onClick={() => {
                 handleSector("admin");
+                console.log("i'm presed!", sector);
               }}
             >
               Admin Home Sector
@@ -49,7 +52,11 @@ function App() {
           </div>
           <div>
             {sector === "admin" ? (
-              <Admin employee={employee} setEmployee={setEmployee} />
+              <Admin
+                employee={employee}
+                reload={reload}
+                setReload={setReload}
+              />
             ) : sector === "user" ? (
               <Users employee={employee} />
             ) : (
@@ -89,10 +96,14 @@ function Users({ employee }) {
   );
 }
 
-function Admin({ employee, setEmployee }) {
+function Admin({ employee, setReload, reload }) {
   const [name, setName] = useState();
   const [lastname, setLastname] = useState();
   const [position, setPosition] = useState();
+
+  useEffect(() => {
+    setReload(false);
+  }, []);
 
   const createNewEmployee = async (name, lastname, position) => {
     const newEmployee = await Axios.post(
@@ -103,6 +114,9 @@ function Admin({ employee, setEmployee }) {
         position: position,
       }
     );
+    if (newEmployee.status === 200) {
+      setReload(!reload);
+    }
   };
 
   const deleteEmployee = async (id) => {
@@ -112,6 +126,9 @@ function Admin({ employee, setEmployee }) {
         member_id: id,
       }
     );
+    if (deleteEmployee.status === 200) {
+      setReload(!reload);
+    }
   };
 
   const handleSubmit = (e) => {
@@ -122,16 +139,6 @@ function Admin({ employee, setEmployee }) {
   const handleDelete = (id) => {
     deleteEmployee(id);
   };
-
-  useEffect(() => {
-    const fetchEmployeeData = async () => {
-      const updatedEmployeeData = await Axios.get(
-        "https://jsd5-mock-backend.onrender.com/members"
-      );
-      setEmployee(updatedEmployeeData.data);
-    };
-    fetchEmployeeData();
-  }, [employee]);
 
   return (
     <div>
