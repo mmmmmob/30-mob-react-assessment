@@ -1,8 +1,7 @@
-# React + Vite
+# Info for assessments
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[Mental Model](https://docs.google.com/presentation/d/1LalDY4xkXKDFWHFWAdn1wViJKF06yBBjM40qmg0oIQE/edit#slide=id.p)
 
-Currently, two official plugins are available:
+[UI Guidelines](https://www.figma.com/file/mSriP3OklGjZhQFVoGlp99/React-Assessment?type=design&node-id=0-1&mode=design&t=EM40DXPAFih5NAk1-0)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[APIs Docs](https://jsd5-mock-backend.onrender.com/docs#/)
