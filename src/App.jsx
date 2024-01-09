@@ -67,7 +67,7 @@ function App() {
 function Users({ employee }) {
   return (
     <div className="overflow-x-auto my-4">
-      <table className="table table-zebra">
+      <table className="table table-zebra table-auto">
         <thead className="text-lg">
           <td>Name</td>
           <td>Lastname</td>
@@ -88,32 +88,76 @@ function Users({ employee }) {
 }
 
 function Admin({ employee }) {
+  const [name, setName] = useState();
+  const [lastname, setLastname] = useState();
+  const [position, setPosition] = useState();
+
+  const createNewEmployee = async (name, lastname, position) => {
+    const newEmployee = await Axios.post(
+      "https://jsd5-mock-backend.onrender.com/members",
+      {
+        name: name,
+        lastname: lastname,
+        position: position,
+      }
+    );
+  };
+
+  const deleteEmployee = async (id) => {
+    const deleteEmployee = await Axios.delete(
+      `https://jsd5-mock-backend.onrender.com/member/${id}`,
+      {
+        member_id: id,
+      }
+    );
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    createNewEmployee(name, lastname, position);
+  };
+
+  const handleDelete = (id) => {
+    deleteEmployee(id);
+  };
+
   return (
     <div>
       <h1 className="text-xl font-semibold my-4">Create user here</h1>
       <div className="flex flex-col justify-center items-center">
         <div className="mb-4 bt-2 flex justify-center items-center ">
-          <form>
+          <form onSubmit={handleSubmit}>
             <input
               className=" mr-4 input input-bordered input-primary "
               type="text"
               placeholder="Name"
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
             />
             <input
               className="mx-3 input input-bordered input-primary "
               type="text"
               placeholder="Lastname"
+              onChange={(e) => {
+                setLastname(e.target.value);
+              }}
             />
             <input
               className="mx-3 input input-bordered input-primary "
               type="text"
               placeholder="Position"
+              onChange={(e) => {
+                setPosition(e.target.value);
+              }}
             />
-            <button className="mx-3 btn btn-success">Submit</button>
+            <button type="submit" className="mx-3 btn btn-success">
+              Submit
+            </button>
           </form>
         </div>
         <div className="overflow-x-auto my-4">
-          <table className="table table-zebra">
+          <table className="table table-zebra table-auto">
             <thead className="text-lg">
               <td>Name</td>
               <td>Lastname</td>
@@ -127,7 +171,12 @@ function Admin({ employee }) {
                   <td>{member.lastname}</td>
                   <td>{member.position}</td>
                   <td>
-                    <button className="btn btn-error btn-xs">DELETE</button>
+                    <button
+                      onClick={() => handleDelete(member.id)}
+                      className="btn btn-error btn-xs"
+                    >
+                      DELETE
+                    </button>
                   </td>
                 </tr>
               ))}
